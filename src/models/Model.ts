@@ -39,8 +39,7 @@ export class Model<T extends HasId> {
 
   fetch(): void {
     const id = this.get('id');
-
-    if (!id) {
+    if (typeof id !== 'number') {
       throw new Error('Cannot fetch without an id');
     }
     this.sync.fetch(id).then((response: AxiosResponse): void => {

@@ -1,9 +1,14 @@
-import { Collection } from './models/Collection';
+import { UserList } from './views/UserList';
+import { User, UserProps } from './models/User';
 
-const collection = new Collection('http://localhost:3000/users');
+const users = User.buildUserCollection();
 
-collection.on('change', () => {
-  console.log(collection);
+users.on('change', () => {
+  const root = document.querySelector('#root');
+
+  if (root) {
+    new UserList(root, users).render();
+  }
 });
 
-collection.fetch();
+users.fetch();
